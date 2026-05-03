@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>🚚 Trucks List</h2>
+
+    <!-- Add Truck Button -->
+    <div class="mb-3">
+        <a href="{% url 'add_truck' %}" class="btn btn-success">
+            ➕ Add Truck
+        </a>
+    </div>
+
+    <table class="table table-striped mt-3">
+
+        <thead>
+            <tr>
+                <th>Plate Number</th>
+                <th>Capacity (Tons)</th>
+                <th>Driver</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for truck in trucks %}
+            <tr>
+                <td>{{ truck.plate_number }}</td>
+                <td>{{ truck.capacity_tons }}</td>
+                <td>{{ truck.driver }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{% url 'edit_truck' truck.id %}" class="btn btn-warning btn-sm">
+                        ✏️ Edit
+                    </a>
+
+                    <!-- Delete Button -->
+                    <a href="{% url 'delete_truck' truck.id %}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete this truck?');">
+                        🗑️ Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

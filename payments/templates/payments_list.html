@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>💰 Payments</h2>
+
+    <table class="table table-hover mt-3">
+
+        <thead>
+            <tr>
+                <th>Loading</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date Paid</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for p in payments %}
+            <tr>
+                <td>{{ p.loading }}</td>
+                <td>{{ p.amount }}</td>
+                <td>
+                    {% if p.is_paid %}
+                        <span class="badge bg-success">Paid</span>
+                    {% else %}
+                        <span class="badge bg-danger">Pending</span>
+                    {% endif %}
+                </td>
+                <td>{{ p.date_paid }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

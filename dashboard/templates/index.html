@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>📊 Walla Jasho Dashboard</h2>
+
+    <div class="row mt-4">
+
+        <div class="col-md-3">
+            <div class="card p-3 text-center shadow">
+                <h3>🚚 {{ trucks }}</h3>
+                <p>Total Trucks</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 text-center shadow">
+                <h3>⚙️ {{ loads }}</h3>
+                <p>Total Loads</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 text-center shadow">
+                <h3>💰 {{ payments }}</h3>
+                <p>Total Payments</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 text-center shadow">
+                <h3>✔ {{ paid }}</h3>
+                <p>Paid</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

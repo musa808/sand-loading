@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="form-card">
+
+        <h2 class="form-title">🚚 Add New Truck</h2>
+
+        <form method="post" class="truck-form">
+            {% csrf_token %}
+
+            <!-- Render form fields -->
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="btn-submit">
+                💾 Save Truck
+            </button>
+        </form>
+
+        <a href="{% url 'truck_list' %}" class="back-link">
+            ← Back to Trucks List
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

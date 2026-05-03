@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>⚙️ Loading Records</h2>
+
+    <a class="btn btn-primary mb-3" href="{% url 'create_loading' %}">
+        + New Loading
+    </a>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Truck</th>
+                <th>Material</th>
+                <th>Quantity (Tons)</th>
+                <th>Loader</th>
+                <th>Location</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for load in loads %}
+            <tr>
+                <td>{{ load.truck }}</td>
+                <td>{{ load.material }}</td>
+                <td>{{ load.quantity_tons }}</td>
+                <td>{{ load.loader }}</td>
+                <td>{{ load.location }}</td>
+                <td>{{ load.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

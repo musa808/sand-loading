@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="form-card mx-auto" style="max-width: 600px;">
+
+    <h3 class="form-title text-center">🚛 Create Truck Arrival</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Truck -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Truck</label>
+            <select name="truck" class="form-control" required>
+                <option value="">-- Select Truck --</option>
+                {% for t in trucks %}
+                <option value="{{ t.id }}">{{ t.plate_number }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Material -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Material</label>
+            <input 
+                type="text" 
+                name="material" 
+                class="form-control"
+                placeholder="e.g. Sand"
+                required
+            >
+        </div>
+
+        <!-- Quantity -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Quantity (Tons)</label>
+            <input 
+                type="number" 
+                step="0.1"
+                name="quantity" 
+                class="form-control"
+                placeholder="e.g. 10"
+                required
+            >
+        </div>
+
+        <!-- Arrival Time (VERY IMPORTANT for SMS) -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Arrival Time</label>
+            <input 
+                type="datetime-local" 
+                name="arrival_time" 
+                class="form-control"
+                required
+            >
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Location</label>
+            <input 
+                type="text" 
+                name="location" 
+                class="form-control"
+                placeholder="e.g. Quarry Site A"
+                required
+            >
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-success w-100 mt-3">
+            🚀 Save & Send Alert
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
