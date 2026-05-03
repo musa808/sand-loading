@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Walla Jasho Loaders System</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            background-color: #f4f6f9;
+            background: linear-gradient(135deg, #e2e8f0, #f8fafc);
+            font-family: 'Segoe UI', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Sidebar */
+        /* SIDEBAR */
         .sidebar {
             height: 100vh;
             width: 240px;
@@ -22,6 +25,7 @@
             background: #1e293b;
             color: white;
             padding-top: 20px;
+            transition: 0.3s;
         }
 
         .sidebar h4 {
@@ -48,13 +52,14 @@
             color: white;
         }
 
-        /* Main content */
+        /* MAIN CONTENT */
         .main-content {
             margin-left: 240px;
             padding: 20px;
+            transition: 0.3s;
         }
 
-        /* Topbar */
+        /* TOPBAR */
         .topbar {
             background: #0f172a;
             color: white;
@@ -63,91 +68,53 @@
             margin-bottom: 20px;
         }
 
-        /* Cards */
-        .card {
+        /* FORM CARD */
+        .form-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
             border: none;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 8px;
         }
 
-        /* Footer */
-        footer {
-            margin-top: 40px;
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+
+            .sidebar {
+                left: -260px;
+                position: fixed;
+                z-index: 1000;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .menu-btn {
+                display: inline-block;
+            }
         }
-        
-    body {
-        background: linear-gradient(135deg, #e2e8f0, #f8fafc);
-        font-family: 'Segoe UI', sans-serif;
-    }
 
-    /* FORM CARD */
-    .form-card {
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
-    }
-
-    .form-card:hover {
-        transform: translateY(-3px);
-    }
-
-    .form-title {
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: bold;
-        color: #1e293b;
-    }
-
-    /* INPUTS */
-    input {
-        border-radius: 8px !important;
-        border: 1px solid #cbd5e1 !important;
-        padding: 10px;
-        width: 100%;
-        transition: 0.2s;
-    }
-
-    input:focus {
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-        outline: none;
-    }
-
-    /* BUTTON */
-    .btn-submit {
-        background: linear-gradient(135deg, #22c55e, #16a34a);
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-
-    .btn-submit:hover {
-        background: linear-gradient(135deg, #16a34a, #15803d);
-        transform: scale(1.02);
-    }
-
-    /* LINKS */
-    a {
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    /* ERROR */
-    .errorlist {
-        color: red;
-        list-style: none;
-        padding: 0;
-        font-size: 14px;
-    }
-
+        .menu-btn {
+            display: none;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
 
     </style>
 </head>
@@ -155,7 +122,8 @@
 <body>
 
 <!-- SIDEBAR -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+
     <h4>🚛 Walla Jasho</h4>
 
     <a href="/" class="{% if request.path == '/' %}active{% endif %}">🏠 Dashboard</a>
@@ -164,15 +132,15 @@
     <a href="/payments/" class="{% if request.path == '/payments/' %}active{% endif %}">💰 Payments</a>
     <a href="/about/" class="{% if request.path == '/about/' %}active{% endif %}">ℹ️ About</a>
 
-    <hr style="border-color: #475569;">
+    <hr style="border-color:#475569;">
 
-    <!-- AUTH LINKS -->
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">🚪 Logout</a>
     {% else %}
         <a href="{% url 'login' %}">🔐 Login</a>
         <a href="{% url 'register' %}">📝 Register</a>
     {% endif %}
+
 </div>
 
 <!-- MAIN CONTENT -->
@@ -180,7 +148,11 @@
 
     <!-- TOPBAR -->
     <div class="topbar d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Loader Management System</h5>
+
+        <div class="d-flex align-items-center gap-2">
+            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+            <h5 class="mb-0">Loader Management System</h5>
+        </div>
 
         <div>
             {% if user.is_authenticated %}
@@ -190,6 +162,7 @@
                 <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Login</a>
             {% endif %}
         </div>
+
     </div>
 
     <!-- MESSAGES -->
@@ -201,16 +174,21 @@
         {% endfor %}
     {% endif %}
 
-    <!-- PAGE CONTENT -->
     {% block content %}
     {% endblock %}
 
-    <!-- FOOTER -->
-    <footer class="text-center text-muted">
+    <footer class="text-center text-muted mt-4">
         <p>© 2026 Walla Jasho Loaders | All Rights Reserved</p>
     </footer>
 
 </div>
+
+
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("show");
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
